@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.grocery.controllers.LoginController">
+   <children>
+      <VBox alignment="CENTER" maxWidth="350.0" spacing="15.0">
+         <padding>
+            <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+         </padding>
+         <children>
+            <Label text="НЭВТРЭХ ХЭСЭГ" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+            <Label text="Барааны бүртгэл, агуулахын систем" />
+            
+            <VBox spacing="5.0" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Нэвтрэх нэр:" />
+                  <TextField fx:id="txtUsername" promptText="Нэвтрэх нэр" />
+               </children>
+            </VBox>
+            
+            <VBox spacing="5.0" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Нууц үг:" />
+                  <PasswordField fx:id="txtPassword" promptText="Нууц үг" />
+               </children>
+            </VBox>
+            
+            <Label fx:id="lblError" textFill="red" wrapText="true" />
+            
+            <Button fx:id="btnLogin" text="Нэвтрэх" onAction="#handleLogin" maxWidth="Infinity" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>
