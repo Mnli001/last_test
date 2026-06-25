@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<TabPane prefHeight="700.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.grocery.controllers.MainController">
+   <tabs>
+      
+      <!-- Tab 1: Хянах самбар -->
+      <Tab text="Хянах самбар">
+         <content>
+            <VBox spacing="15.0">
+               <padding>
+                  <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+               </padding>
+               <children>
+                  <Label text="Үндсэн хянах самбар" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                  
+                  <!-- Metrics -->
+                  <HBox spacing="15.0">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: #f9f9f9;">
+                           <children>
+                              <Label text="Нийт барааны төрөл:" />
+                              <Label fx:id="lblTotalProducts" text="0" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: #f9f9f9;">
+                           <children>
+                              <Label text="Дуусах хугацаа дөхсөн:" />
+                              <Label fx:id="lblExpiredAlerts" text="0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: red;" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: #f9f9f9;">
+                           <children>
+                              <Label text="Үлдэгдэл бага бараа:" />
+                              <Label fx:id="lblLowStockAlerts" text="0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: orange;" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: #f9f9f9;">
+                           <children>
+                              <Label text="Нийт нийлүүлэгч:" />
+                              <Label fx:id="lblTotalSuppliers" text="0" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  
+                  <!-- Warning Table -->
+                  <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="Хугацаа нь дуусаж буй / дууссан бараанууд:" style="-fx-font-weight: bold;" />
+                        <TableView fx:id="tblExpiringSoon" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colExpName" text="Барааны нэр" prefWidth="250.0" />
+                              <TableColumn fx:id="colExpCategory" text="Ангилал" prefWidth="150.0" />
+                              <TableColumn fx:id="colExpQty" text="Агуулахын үлдэгдэл" prefWidth="150.0" />
+                              <TableColumn fx:id="colExpDate" text="Дуусах огноо" prefWidth="180.0" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblUserRole" text="Нэвтэрсэн хэрэглэгч" style="-fx-font-style: italic;" />
+                        <Button text="Системээс гарах" onAction="#handleLogout" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </Tab>
+      
+      <!-- Tab 2: Барааны бүртгэл (Exact style from example image) -->
+      <Tab text="Барааны бүртгэл">
+         <content>
+            <HBox spacing="15.0">
+               <padding>
+                  <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+               </padding>
+               <children>
+                  
+                  <!-- Left Form (Input elements) -->
+                  <VBox spacing="10.0" prefWidth="300.0" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #f9f9f9; -fx-border-width: 0 1 0 0;">
+                     <children>
+                        <Label text="Барааны бүртгэл" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                        
+                        <Label text="Барааны нэр :" />
+                        <TextField fx:id="txtProdName" />
+                        
+                        <Label text="Ангилал :" />
+                        <ComboBox fx:id="cmbProdCategory" editable="true" maxWidth="Infinity" />
+                        
+                        <Label text="Нэгж үнэ :" />
+                        <TextField fx:id="txtProdPrice" />
+                        
+                        <Label text="Тоо ширхэг :" />
+                        <TextField fx:id="txtProdQty" />
+                        
+                        <Label text="Дуусах огноо :" />
+                        <DatePicker fx:id="dpProdExp" maxWidth="Infinity" />
+                        
+                        <Label text="Нийлүүлэгч :" />
+                        <ComboBox fx:id="cmbProdSupplier" maxWidth="Infinity" />
+                        
+                        <HBox spacing="10.0" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                           <children>
+                              <Button text="Нэмэх" onAction="#handleAddProduct" />
+                              <Button text="Засах" onAction="#handleEditProduct" />
+                              <Button text="Устгах" onAction="#handleDeleteProduct" />
+                           </children>
+                        </HBox>
+                        <Button text="Талбарыг цэвэрлэх" onAction="#clearProductFields" maxWidth="Infinity" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Right Table & Search -->
+                  <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <!-- Search Row -->
+                        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Хайгч :" />
+                              <TextField fx:id="txtSearchProduct" onKeyReleased="#filterProducts" prefWidth="250.0" promptText="Нэрээр хайх..." />
+                              <ComboBox fx:id="cmbFilterCategory" onAction="#filterProducts" promptText="Ангиллаар шүүх" />
+                              <Button text="Цэвэрлэх" onAction="#clearProductFilters" />
+                           </children>
+                        </HBox>
+                        
+                        <!-- TableView -->
+                        <TableView fx:id="tblProducts" VBox.vgrow="ALWAYS" onMouseClicked="#selectProductFromTable">
+                           <columns>
+                              <TableColumn fx:id="colProdId" text="№" prefWidth="50.0" />
+                              <TableColumn fx:id="colProdName" text="Барааны нэр" prefWidth="180.0" />
+                              <TableColumn fx:id="colProdCategory" text="Ангилал" prefWidth="110.0" />
+                              <TableColumn fx:id="colProdPrice" text="Нэгж үнэ" prefWidth="100.0" />
+                              <TableColumn fx:id="colProdQty" text="Тоо ширхэг" prefWidth="100.0" />
+                              <TableColumn fx:id="colProdExp" text="Дуусах огноо" prefWidth="120.0" />
+                              <TableColumn fx:id="colProdSupplier" text="Нийлүүлэгч" prefWidth="140.0" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      
+      <!-- Tab 3: Нийлүүлэгчийн бүртгэл -->
+      <Tab text="Нийлүүлэгчийн бүртгэл">
+         <content>
+            <HBox spacing="15.0">
+               <padding>
+                  <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+               </padding>
+               <children>
+                  
+                  <!-- Left Form -->
+                  <VBox spacing="10.0" prefWidth="300.0" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #f9f9f9; -fx-border-width: 0 1 0 0;">
+                     <children>
+                        <Label text="Нийлүүлэгчийн бүртгэл" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                        
+                        <Label text="Нийлүүлэгчийн нэр :" />
+                        <TextField fx:id="txtSupName" />
+                        
+                        <Label text="Утасны дугаар :" />
+                        <TextField fx:id="txtSupPhone" />
+                        
+                        <Label text="Хаяг :" />
+                        <TextArea fx:id="txtSupAddress" prefHeight="100.0" wrapText="true" />
+                        
+                        <HBox spacing="10.0" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                           <children>
+                              <Button text="Нэмэх" onAction="#handleAddSupplier" />
+                              <Button text="Засах" onAction="#handleEditSupplier" />
+                              <Button text="Устгах" onAction="#handleDeleteSupplier" />
+                           </children>
+                        </HBox>
+                        <Button text="Талбарыг цэвэрлэх" onAction="#clearSupplierFields" maxWidth="Infinity" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Right Table -->
+                  <TableView fx:id="tblSuppliers" HBox.hgrow="ALWAYS" onMouseClicked="#selectSupplierFromTable">
+                     <columns>
+                        <TableColumn fx:id="colSupId" text="№" prefWidth="50.0" />
+                        <TableColumn fx:id="colSupName" text="Нийлүүлэгчийн нэр" prefWidth="250.0" />
+                        <TableColumn fx:id="colSupPhone" text="Утасны дугаар" prefWidth="180.0" />
+                        <TableColumn fx:id="colSupAddress" text="Хаяг" prefWidth="300.0" />
+                     </columns>
+                  </TableView>
+                  
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      
+      <!-- Tab 4: Орлого / Зарлага -->
+      <Tab text="Агуулахын орлого / зарлага">
+         <content>
+            <HBox spacing="15.0">
+               <padding>
+                  <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+               </padding>
+               <children>
+                  
+                  <!-- Left Form -->
+                  <VBox spacing="10.0" prefWidth="300.0" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #f9f9f9; -fx-border-width: 0 1 0 0;">
+                     <children>
+                        <Label text="Агуулахын гүйлгээ" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                        
+                        <Label text="Бараа сонгох * :" />
+                        <ComboBox fx:id="cmbStockProduct" maxWidth="Infinity" promptText="Бараа сонгоно уу" />
+                        
+                        <Label text="Тоо хэмжээ * :" />
+                        <TextField fx:id="txtStockQty" />
+                        
+                        <HBox spacing="10.0" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                           <children>
+                              <Button text="Орлого авах" onAction="#handleStockIn" />
+                              <Button text="Зарлага гаргах" onAction="#handleStockOut" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  
+                  <!-- Right History Table -->
+                  <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Гүйлгээний түүх:" style="-fx-font-weight: bold;" />
+                        <TableView fx:id="tblStockHistory" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colStockId" text="№" prefWidth="50.0" />
+                              <TableColumn fx:id="colStockProduct" text="Барааны нэр" prefWidth="250.0" />
+                              <TableColumn fx:id="colStockQty" text="Тоо хэмжээ" prefWidth="120.0" />
+                              <TableColumn fx:id="colStockType" text="Төрөл" prefWidth="100.0" />
+                              <TableColumn fx:id="colStockDate" text="Гүйлгээний огноо" prefWidth="200.0" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      
+      <!-- Tab 5: Тайлан -->
+      <Tab text="Тайлан">
+         <content>
+            <VBox spacing="15.0">
+               <padding>
+                  <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+               </padding>
+               <children>
+                  <Label text="Системийн нэгдсэн тайлан" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+                  
+                  <!-- Buttons -->
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button text="Нийт барааны тайлан" onAction="#loadGeneralReport" />
+                        <Button text="Хугацаа дуусах гэж буй тайлан" onAction="#loadExpirationReport" />
+                        <Button text="Үлдэгдэл дутагдалтай бараа" onAction="#loadLowStockReport" />
+                     </children>
+                  </HBox>
+                  
+                  <!-- Display Area -->
+                  <VBox spacing="10.0" VBox.vgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-padding: 10;">
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label fx:id="lblReportTitle" text="Тайлангийн төрөл" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblReportSummary" text="Нийт дүн: 0" style="-fx-font-weight: bold;" />
+                           </children>
+                        </HBox>
+                        <Separator />
+                        <TableView fx:id="tblReport" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colRepId" text="№" prefWidth="50.0" />
+                              <TableColumn fx:id="colRepName" text="Барааны нэр" prefWidth="250.0" />
+                              <TableColumn fx:id="colRepCategory" text="Ангилал" prefWidth="150.0" />
+                              <TableColumn fx:id="colRepPrice" text="Нэгж үнэ" prefWidth="120.0" />
+                              <TableColumn fx:id="colRepQty" text="Агуулахын үлдэгдэл" prefWidth="150.0" />
+                              <TableColumn fx:id="colRepExp" text="Дуусах огноо" prefWidth="150.0" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </Tab>
+      
+   </tabs>
+</TabPane>
